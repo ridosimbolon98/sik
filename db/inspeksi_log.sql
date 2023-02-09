@@ -1,0 +1,425 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.2
+-- Dumped by pg_dump version 13.4
+
+-- Started on 2023-02-09 14:29:32
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 16 (class 2615 OID 62519)
+-- Name: inspeksi_log; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA inspeksi_log;
+
+
+ALTER SCHEMA inspeksi_log OWNER TO postgres;
+
+SET default_tablespace = '';
+
+--
+-- TOC entry 250 (class 1259 OID 62592)
+-- Name: tb_log; Type: TABLE; Schema: inspeksi_log; Owner: postgres
+--
+
+CREATE TABLE inspeksi_log.tb_log (
+    id_log bigint NOT NULL,
+    username text NOT NULL,
+    type_log text NOT NULL,
+    deskripsi_log text NOT NULL,
+    date timestamp with time zone,
+    ip text
+);
+
+
+ALTER TABLE inspeksi_log.tb_log OWNER TO postgres;
+
+--
+-- TOC entry 249 (class 1259 OID 62590)
+-- Name: tb_log_id_log_seq; Type: SEQUENCE; Schema: inspeksi_log; Owner: postgres
+--
+
+CREATE SEQUENCE inspeksi_log.tb_log_id_log_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE inspeksi_log.tb_log_id_log_seq OWNER TO postgres;
+
+--
+-- TOC entry 2332 (class 0 OID 0)
+-- Dependencies: 249
+-- Name: tb_log_id_log_seq; Type: SEQUENCE OWNED BY; Schema: inspeksi_log; Owner: postgres
+--
+
+ALTER SEQUENCE inspeksi_log.tb_log_id_log_seq OWNED BY inspeksi_log.tb_log.id_log;
+
+
+--
+-- TOC entry 2208 (class 2604 OID 62595)
+-- Name: tb_log id_log; Type: DEFAULT; Schema: inspeksi_log; Owner: postgres
+--
+
+ALTER TABLE ONLY inspeksi_log.tb_log ALTER COLUMN id_log SET DEFAULT nextval('inspeksi_log.tb_log_id_log_seq'::regclass);
+
+
+--
+-- TOC entry 2326 (class 0 OID 62592)
+-- Dependencies: 250
+-- Data for Name: tb_log; Type: TABLE DATA; Schema: inspeksi_log; Owner: postgres
+--
+
+COPY inspeksi_log.tb_log (id_log, username, type_log, deskripsi_log, date, ip) FROM stdin;
+1	33942109	login	Login User 33942109	2023-01-26 14:11:22+07	192.168.10.30
+2	33942109	login	Login User 33942109	2023-01-30 09:43:03+07	192.168.10.30
+3	33942109	login	Login User 33942109	2023-01-30 10:26:45+07	192.168.10.30
+4	33942109	login	Login User 33942109	2023-01-30 10:54:07+07	192.168.10.30
+5	33942109	login	Login User 33942109	2023-01-30 11:10:35+07	192.168.10.30
+6	33942109	logout	Logout User	2023-01-30 11:20:09+07	192.168.10.30
+7	33942109	login	Login User 33942109	2023-01-30 11:20:12+07	192.168.10.30
+8	33942109	logout	Logout User	2023-01-30 12:18:56+07	192.168.10.30
+9	33942109	login	Login User 33942109	2023-01-30 12:19:07+07	192.168.10.30
+10	33942109	logout	Logout User	2023-01-30 14:13:37+07	192.168.10.30
+11	33942109	login	Login User 33942109	2023-01-30 14:13:44+07	192.168.10.30
+12	33942109	logout	Logout User	2023-01-30 15:38:38+07	192.168.10.30
+13	33942110	login	Login User 33942110	2023-01-30 15:40:05+07	192.168.10.30
+14	33942110	login	Login User 33942110	2023-01-30 15:41:13+07	192.168.10.30
+15	33942110	login	Login User 33942110	2023-01-30 15:43:17+07	192.168.10.30
+16	33942110	insert	Tambah Data Jadwal Inspeksi ID: JA1675069353, oleh: 33942110	2023-01-30 16:02:33+07	192.168.10.30
+17	33942109	login	Login User 33942109	2023-01-31 09:03:34+07	192.168.10.30
+18	33942109	logout	Logout User	2023-01-31 09:03:45+07	192.168.10.30
+19	33942110	login	Login User 33942110	2023-01-31 09:03:55+07	192.168.10.30
+20	33942110	login	Login User 33942110	2023-01-31 09:28:23+07	192.168.10.30
+21	33942110	logout	Logout User	2023-01-31 09:51:58+07	192.168.10.30
+22	33942109	login	Login User 33942109	2023-01-31 09:52:08+07	192.168.10.30
+23	33942109	login	Login User 33942109	2023-01-31 13:18:08+07	192.168.10.30
+24	33942109	update	Update Data Status User dengan NIK: 33942110	2023-01-31 13:35:39+07	192.168.10.30
+25	33942109	update	Update Data Status User dengan NIK: 33942110	2023-01-31 13:37:00+07	192.168.10.30
+26	33942109	update	Update Data Status User dengan NIK: 33942110	2023-01-31 13:39:22+07	192.168.10.30
+27	33942109	update	Update Data Status User dengan NIK: 33942110	2023-01-31 13:39:45+07	192.168.10.30
+28	33942109	insert	Tambah Data User dengan NIK: 04991510	2023-01-31 13:41:18+07	192.168.10.30
+29	33942109	logout	Logout User	2023-01-31 13:42:33+07	192.168.10.30
+30	33942109	login	Login User 33942109	2023-01-31 13:42:40+07	192.168.10.30
+31	33942109	update	Update Data Status User dengan NIK: 04991510	2023-01-31 13:43:14+07	192.168.10.30
+32	33942109	update	Update Data Status User dengan NIK: 04991510	2023-01-31 13:43:38+07	192.168.10.30
+33	33942109	insert	Tambah Data User dengan NIK: 04991510	2023-01-31 13:47:59+07	192.168.10.30
+34	33942109	logout	Logout User	2023-01-31 13:52:30+07	192.168.10.30
+35	04991510	login	Login User 04991510	2023-01-31 14:04:15+07	192.168.10.30
+36	04991510	insert	Tambah Data User dengan NIK: 33942109	2023-01-31 14:05:04+07	192.168.10.30
+37	04991510	insert	Tambah Data User dengan NIK: 33942110	2023-01-31 14:05:39+07	192.168.10.30
+38	04991510	logout	Logout User	2023-01-31 14:06:03+07	192.168.10.30
+39	33942109	login	Login User 33942109	2023-01-31 14:06:15+07	192.168.10.30
+40	33942109	update	Update Data Status User dengan NIK: 33942110	2023-01-31 14:06:23+07	192.168.10.30
+41	33942109	update	Update Data Status User dengan NIK: 33942110	2023-01-31 14:06:28+07	192.168.10.30
+42	33942109	logout	Logout User	2023-01-31 14:20:33+07	192.168.10.30
+43	33942109	login	Login User 33942109	2023-01-31 14:20:40+07	192.168.10.30
+44	33942109	login	Login User 33942109	2023-02-01 11:18:56+07	192.168.10.30
+45	33942109	insert	Tambah Data Jadwal Inspeksi ID: JA1675225152, oleh: 33942109	2023-02-01 11:19:12+07	192.168.10.30
+46	33942109	update	Update Data Status User dengan NIK: 33942110	2023-02-01 11:20:33+07	192.168.10.30
+47	33942109	update	Update Data Status User dengan NIK: 33942110	2023-02-01 11:20:37+07	192.168.10.30
+48	33942109	update	Update Data Status User dengan NIK: 33942110	2023-02-01 11:20:40+07	192.168.10.30
+49	33942109	update	Update Data Status User dengan NIK: 33942110	2023-02-01 11:20:49+07	192.168.10.30
+50	33942109	update	Update Data Status Area dengan KD: FS1	2023-02-01 11:49:50+07	192.168.10.30
+51	33942109	update	Update Data Status Area dengan KD: FS2	2023-02-01 11:52:02+07	192.168.10.30
+52	33942109	update	Update Data Status Area dengan KD: FS3	2023-02-01 12:02:23+07	192.168.10.30
+53	33942109	update	Update Data Status Area dengan KD: FS4	2023-02-01 12:02:26+07	192.168.10.30
+54	33942109	update	Update Data Status Area dengan KD: FS3	2023-02-01 12:02:53+07	192.168.10.30
+55	33942109	update	Update Data Status Area dengan KD: FS4	2023-02-01 12:02:58+07	192.168.10.30
+56	33942109	update	Ubah Data Area dengan Kode: FS5	2023-02-01 13:08:57+07	192.168.10.30
+57	33942109	update	Ubah Data Area dengan Kode: FS6	2023-02-01 13:16:15+07	192.168.10.30
+58	33942109	update	Ubah Data Area dengan Kode: FS7	2023-02-01 13:16:21+07	192.168.10.30
+59	33942109	update	Ubah Data Area dengan Kode: FS8	2023-02-01 13:16:28+07	192.168.10.30
+60	33942109	update	Ubah Data Area dengan Kode: AAC	2023-02-01 13:16:34+07	192.168.10.30
+61	33942109	update	Ubah Data Area dengan Kode: MORTAR	2023-02-01 13:16:40+07	192.168.10.30
+62	33942109	update	Ubah Data Area dengan Kode: HYDRA	2023-02-01 13:16:54+07	192.168.10.30
+63	33942109	update	Ubah Data Area dengan Kode: BALLMILL	2023-02-01 13:17:26+07	192.168.10.30
+64	33942109	update	Ubah Data Area dengan Kode: ERMILL	2023-02-01 13:17:43+07	192.168.10.30
+65	33942109	update	Ubah Data Area dengan Kode: BALLMILL	2023-02-01 13:18:07+07	192.168.10.30
+66	33942109	update	Ubah Data Area dengan Kode: ERMILL	2023-02-01 13:18:22+07	192.168.10.30
+67	33942109	update	Ubah Data Area dengan Kode: DRYER	2023-02-01 13:18:31+07	192.168.10.30
+68	33942109	update	Ubah Data Area dengan Kode: BOILER1	2023-02-01 13:19:20+07	192.168.10.30
+69	33942109	update	Ubah Data Area dengan Kode: BOILER2	2023-02-01 13:19:26+07	192.168.10.30
+70	33942109	update	Ubah Data Area dengan Kode: BOILER3	2023-02-01 13:19:31+07	192.168.10.30
+71	33942109	update	Ubah Data Area dengan Kode: BOILER4	2023-02-01 13:19:41+07	192.168.10.30
+72	33942109	update	Ubah Data Area dengan Kode: BOILER5	2023-02-01 13:20:01+07	192.168.10.30
+73	33942109	update	Ubah Data Area dengan Kode: QCLFC	2023-02-01 13:20:36+07	192.168.10.30
+74	33942109	update	Ubah Data Area dengan Kode: QCLAAC	2023-02-01 13:20:41+07	192.168.10.30
+75	33942109	update	Ubah Data Area dengan Kode: KGBSFC	2023-02-01 13:20:50+07	192.168.10.30
+76	33942109	update	Ubah Data Area dengan Kode: KGBSAAC	2023-02-01 13:20:56+07	192.168.10.30
+77	33942109	update	Ubah Data Area dengan Kode: BKLELKT	2023-02-01 13:21:08+07	192.168.10.30
+78	33942109	update	Ubah Data Area dengan Kode: BKLMKNK	2023-02-01 13:21:14+07	192.168.10.30
+79	33942109	update	Ubah Data Area dengan Kode: BKLUTLY	2023-02-01 13:21:20+07	192.168.10.30
+80	33942109	update	Ubah Data Area dengan Kode: GDGB1	2023-02-01 13:21:43+07	192.168.10.30
+81	33942109	update	Ubah Data Area dengan Kode: GDGB2	2023-02-01 13:21:50+07	192.168.10.30
+82	33942109	update	Ubah Data Area dengan Kode: GDGC1	2023-02-01 13:22:09+07	192.168.10.30
+83	33942109	update	Ubah Data Area dengan Kode: GDGC2	2023-02-01 13:22:16+07	192.168.10.30
+84	33942109	update	Ubah Data Area dengan Kode: GDGPARTFC	2023-02-01 13:22:49+07	192.168.10.30
+85	33942109	update	Ubah Data Area dengan Kode: GDGPARTAAC	2023-02-01 13:23:03+07	192.168.10.30
+86	33942109	update	Ubah Data Area dengan Kode: GDGBTBR	2023-02-01 13:23:12+07	192.168.10.30
+87	33942109	update	Ubah Data Area dengan Kode: GDGKRTS	2023-02-01 13:23:21+07	192.168.10.30
+88	33942109	update	Ubah Data Area dengan Kode: GDGPSR	2023-02-01 13:23:30+07	192.168.10.30
+89	33942109	update	Ubah Data Area dengan Kode: GDGKRST	2023-02-01 13:24:06+07	192.168.10.30
+90	33942109	update	Ubah Data Area dengan Kode: GDGALNM	2023-02-01 13:24:55+07	192.168.10.30
+91	33942109	update	Ubah Data Area dengan Kode: WRSMKT	2023-02-01 13:25:17+07	192.168.10.30
+92	33942109	update	Ubah Data Area dengan Kode: GDGPLT	2023-02-01 13:25:30+07	192.168.10.30
+93	33942109	update	Ubah Data Area dengan Kode: GDGCPR	2023-02-01 13:25:36+07	192.168.10.30
+94	33942109	update	Ubah Data Area dengan Kode: GDGSTR	2023-02-01 13:25:42+07	192.168.10.30
+95	33942109	update	Ubah Data Area dengan Kode: GDGPKG	2023-02-01 13:25:49+07	192.168.10.30
+96	33942109	update	Ubah Data Area dengan Kode: GDGRSZ	2023-02-01 13:25:54+07	192.168.10.30
+97	33942109	update	Ubah Data Area dengan Kode: RGSERV	2023-02-01 13:26:03+07	192.168.10.30
+98	33942109	update	Ubah Data Area dengan Kode: GDGIT	2023-02-01 13:26:27+07	192.168.10.30
+99	33942109	update	Ubah Data Area dengan Kode: RKIT	2023-02-01 13:26:39+07	192.168.10.30
+100	33942109	update	Ubah Data Area dengan Kode: FS1	2023-02-01 13:26:52+07	192.168.10.30
+101	33942109	update	Ubah Data Area dengan Kode: FS2	2023-02-01 13:26:58+07	192.168.10.30
+102	33942109	update	Ubah Data Area dengan Kode: FS3	2023-02-01 13:27:06+07	192.168.10.30
+103	33942109	update	Ubah Data Area dengan Kode: FS4	2023-02-01 13:27:13+07	192.168.10.30
+104	33942109	update	Update Data Status Bagian dengan KD: PRDFC	2023-02-01 14:08:18+07	192.168.10.30
+105	33942109	update	Update Data Status Bagian dengan KD: PRDFC	2023-02-01 14:08:26+07	192.168.10.30
+106	33942109	update	Update Data Status Bagian dengan KD: PRDFC	2023-02-01 14:08:27+07	192.168.10.30
+107	33942109	update	Update Data Status Bagian dengan KD: PRDFC	2023-02-01 14:08:37+07	192.168.10.30
+108	33942109	login	Login User 33942109	2023-02-01 15:13:49+07	192.168.10.30
+109	33942109	logout	Logout User	2023-02-01 15:29:20+07	192.168.10.30
+110	33942109	login	Login User 33942109	2023-02-01 15:29:30+07	192.168.10.30
+111	33942109	logout	Logout User	2023-02-01 16:57:34+07	192.168.10.30
+112	33942109	login	Login User 33942109	2023-02-02 10:05:04+07	192.168.10.30
+113	33942109	logout	Logout User	2023-02-02 10:34:51+07	192.168.10.30
+114	33942109	login	Login User 33942109	2023-02-02 10:35:07+07	192.168.10.30
+115	33942109	insert	Tambah Data User dengan NIK: 04991510	2023-02-02 10:35:47+07	192.168.10.30
+116	33942109	logout	Logout User	2023-02-02 10:35:56+07	192.168.10.30
+117	04991510	login	Login User 04991510	2023-02-02 10:36:04+07	192.168.10.30
+118	04991510	insert	Tambah Data Inspeksi Area: AAC, Bagian: PRDAAC	2023-02-02 10:36:28+07	192.168.10.30
+119	04991510	insert	Tambah Data Inspeksi Area: AAC, Bagian: PRDAAC	2023-02-02 10:36:44+07	192.168.10.30
+120	04991510	insert	Tambah Data Inspeksi Area: AAC, Bagian: PRDAAC	2023-02-02 10:37:09+07	192.168.10.30
+121	04991510	logout	Logout User	2023-02-02 11:29:38+07	192.168.10.30
+122	33942109	login	Login User 33942109	2023-02-02 11:29:42+07	192.168.10.30
+123	33942109	insert	Tambah Data Report Area: FS7, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+124	33942109	insert	Tambah Data Report Area: FS8, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+125	33942109	insert	Tambah Data Report Area: AAC, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+126	33942109	insert	Tambah Data Report Area: MORTAR, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+127	33942109	insert	Tambah Data Report Area: HYDRA, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+128	33942109	insert	Tambah Data Report Area: RGSERV, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+129	33942109	insert	Tambah Data Report Area: GDGIT, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+130	33942109	insert	Tambah Data Report Area: RKIT, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+131	33942109	insert	Tambah Data Report Area: FS1, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+132	33942109	insert	Tambah Data Report Area: FS2, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+133	33942109	insert	Tambah Data Report Area: FS3, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+134	33942109	insert	Tambah Data Report Area: FS4, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+135	33942109	insert	Tambah Data Report Area: BALLMILL, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+136	33942109	insert	Tambah Data Report Area: FS5, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+137	33942109	insert	Tambah Data Report Area: FS6, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+138	33942109	insert	Tambah Data Report Area: ERMILL, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+139	33942109	insert	Tambah Data Report Area: DRYER, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+140	33942109	insert	Tambah Data Report Area: BOILER1, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+141	33942109	insert	Tambah Data Report Area: BOILER2, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+142	33942109	insert	Tambah Data Report Area: BOILER3, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+143	33942109	insert	Tambah Data Report Area: BOILER4, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+144	33942109	insert	Tambah Data Report Area: BOILER5, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+145	33942109	insert	Tambah Data Report Area: QCLFC, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+146	33942109	insert	Tambah Data Report Area: QCLAAC, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+147	33942109	insert	Tambah Data Report Area: KGBSFC, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+148	33942109	insert	Tambah Data Report Area: KGBSAAC, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+149	33942109	insert	Tambah Data Report Area: BKLELKT, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+150	33942109	insert	Tambah Data Report Area: BKLMKNK, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+151	33942109	insert	Tambah Data Report Area: BKLUTLY, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+152	33942109	insert	Tambah Data Report Area: GDGB1, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+153	33942109	insert	Tambah Data Report Area: GDGB2, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+154	33942109	insert	Tambah Data Report Area: GDGC1, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+155	33942109	insert	Tambah Data Report Area: GDGC2, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+156	33942109	insert	Tambah Data Report Area: GDGPARTFC, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+157	33942109	insert	Tambah Data Report Area: GDGPARTAAC, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+158	33942109	insert	Tambah Data Report Area: GDGBTBR, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+159	33942109	insert	Tambah Data Report Area: GDGKRTS, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+160	33942109	insert	Tambah Data Report Area: GDGPSR, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+161	33942109	insert	Tambah Data Report Area: GDGKRST, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+162	33942109	insert	Tambah Data Report Area: GDGALNM, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+163	33942109	insert	Tambah Data Report Area: WRSMKT, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+164	33942109	insert	Tambah Data Report Area: GDGPLT, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+165	33942109	insert	Tambah Data Report Area: GDGCPR, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+166	33942109	insert	Tambah Data Report Area: GDGSTR, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+167	33942109	insert	Tambah Data Report Area: GDGPKG, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+168	33942109	insert	Tambah Data Report Area: GDGRSZ, Periode: 2023-02	2023-02-02 11:34:59+07	192.168.10.30
+169	33942109	login	Login User 33942109	2023-02-02 13:02:03+07	192.168.10.30
+170	33942109	logout	Logout User	2023-02-02 13:26:51+07	192.168.10.30
+171	04991510	login	Login User 04991510	2023-02-02 13:26:55+07	192.168.10.30
+172	04991510	update	Ubah Data Tanggapan Temuan Inspeksi	2023-02-02 14:00:30+07	192.168.10.30
+173	04991510	update	Ubah Data Tanggapan Temuan Inspeksi	2023-02-02 14:02:13+07	192.168.10.30
+174	04991510	update	Ubah Data Tanggapan Temuan Inspeksi	2023-02-02 14:03:56+07	192.168.10.30
+175	04991510	update	Ubah Data Tanggapan Temuan Inspeksi	2023-02-02 14:07:14+07	192.168.10.30
+176	04991510	logout	Logout User	2023-02-02 15:48:17+07	192.168.10.30
+177	04991510	login	Login User 04991510	2023-02-02 15:48:55+07	192.168.10.30
+178	04991510	insert	Tambah Data Inspeksi Area: FS2, Bagian: PRDAAC	2023-02-02 15:49:49+07	192.168.10.30
+179	04991510	delete	Hapus Data Temuan Inspeksi ID: 1675327789, oleh: 04991510	2023-02-02 15:50:07+07	192.168.10.30
+180	04991510	delete	Hapus Data Temuan Inspeksi ID: 1675309003, oleh: 04991510	2023-02-02 15:50:14+07	192.168.10.30
+181	04991510	delete	Hapus Data Temuan Inspeksi ID: 1675309029, oleh: 04991510	2023-02-02 15:50:20+07	192.168.10.30
+182	04991510	delete	Hapus Data Temuan Inspeksi ID: 1675308988, oleh: 04991510	2023-02-02 15:50:24+07	192.168.10.30
+183	04991510	insert	Tambah Data Inspeksi Area: FS8, Bagian: PRDAAC	2023-02-02 15:50:55+07	192.168.10.30
+184	04991510	update	Ubah Data Tanggapan Temuan Inspeksi	2023-02-02 15:51:40+07	192.168.10.30
+185	04991510	logout	Logout User	2023-02-02 15:51:47+07	192.168.10.30
+186	33942109	login	Login User 33942109	2023-02-02 15:51:50+07	192.168.10.30
+187	33942109	update	Update Data Status Bagian dengan KD: PRDAAC	2023-02-02 15:52:03+07	192.168.10.30
+188	33942109	update	Update Data Status Bagian dengan KD: PRDAAC	2023-02-02 15:52:12+07	192.168.10.30
+189	33942109	insert	Tambah Data Area Inspeksi KD: GDGIT2	2023-02-02 15:52:52+07	192.168.10.30
+190	33942109	update	Ubah Data Area dengan Kode: GDGIT2	2023-02-02 15:53:13+07	192.168.10.30
+191	33942109	insert	Tambah Data User dengan NIK: 02381923	2023-02-02 15:53:54+07	192.168.10.30
+192	33942109	update	Update Data Status User dengan NIK: 02381923	2023-02-02 15:54:04+07	192.168.10.30
+193	33942109	update	Update Data Status User dengan NIK: 02381923	2023-02-02 15:54:08+07	192.168.10.30
+194	33942109	insert	Tambah Data Jadwal Inspeksi ID: JA1675328061, oleh: 33942109	2023-02-02 15:54:21+07	192.168.10.30
+195	33942109	insert	Tambah Data Report Area: AAC, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+196	33942109	insert	Tambah Data Report Area: BALLMILL, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+197	33942109	insert	Tambah Data Report Area: BKLELKT, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+198	33942109	insert	Tambah Data Report Area: BKLMKNK, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+199	33942109	insert	Tambah Data Report Area: BKLUTLY, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+200	33942109	insert	Tambah Data Report Area: BOILER1, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+201	33942109	insert	Tambah Data Report Area: BOILER2, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+202	33942109	insert	Tambah Data Report Area: BOILER3, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+203	33942109	insert	Tambah Data Report Area: BOILER4, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+204	33942109	insert	Tambah Data Report Area: BOILER5, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+205	33942109	insert	Tambah Data Report Area: DRYER, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+206	33942109	insert	Tambah Data Report Area: ERMILL, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+207	33942109	insert	Tambah Data Report Area: FS1, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+208	33942109	insert	Tambah Data Report Area: FS2, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+209	33942109	insert	Tambah Data Report Area: FS3, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+210	33942109	insert	Tambah Data Report Area: FS4, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+211	33942109	insert	Tambah Data Report Area: FS5, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+212	33942109	insert	Tambah Data Report Area: FS6, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+213	33942109	insert	Tambah Data Report Area: FS7, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+214	33942109	insert	Tambah Data Report Area: FS8, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+215	33942109	insert	Tambah Data Report Area: GDGALNM, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+216	33942109	insert	Tambah Data Report Area: GDGB1, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+217	33942109	insert	Tambah Data Report Area: GDGB2, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+218	33942109	insert	Tambah Data Report Area: GDGBTBR, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+219	33942109	insert	Tambah Data Report Area: GDGC1, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+220	33942109	insert	Tambah Data Report Area: GDGC2, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+221	33942109	insert	Tambah Data Report Area: GDGCPR, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+222	33942109	insert	Tambah Data Report Area: GDGIT, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+223	33942109	insert	Tambah Data Report Area: GDGIT2, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+224	33942109	insert	Tambah Data Report Area: GDGKRTS, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+225	33942109	insert	Tambah Data Report Area: GDGKRST, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+226	33942109	insert	Tambah Data Report Area: GDGPKG, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+227	33942109	insert	Tambah Data Report Area: GDGPLT, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+228	33942109	insert	Tambah Data Report Area: GDGPARTAAC, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+229	33942109	insert	Tambah Data Report Area: GDGPARTFC, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+230	33942109	insert	Tambah Data Report Area: GDGPSR, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+231	33942109	insert	Tambah Data Report Area: GDGRSZ, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+232	33942109	insert	Tambah Data Report Area: GDGSTR, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+233	33942109	insert	Tambah Data Report Area: HYDRA, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+234	33942109	insert	Tambah Data Report Area: KGBSAAC, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+235	33942109	insert	Tambah Data Report Area: KGBSFC, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+236	33942109	insert	Tambah Data Report Area: MORTAR, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+237	33942109	insert	Tambah Data Report Area: QCLAAC, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+238	33942109	insert	Tambah Data Report Area: QCLFC, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+239	33942109	insert	Tambah Data Report Area: RKIT, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+240	33942109	insert	Tambah Data Report Area: RGSERV, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+241	33942109	insert	Tambah Data Report Area: WRSMKT, Periode: 2023-02	2023-02-02 15:55:19+07	192.168.10.30
+242	33942109	delete	Hapus Data Jadwal Inspeksi ID: JA1675225152	2023-02-02 16:03:36+07	192.168.10.30
+243	33942109	delete	Hapus Data Jadwal Inspeksi ID: JA1675328061	2023-02-02 16:03:42+07	192.168.10.30
+244	33942109	insert	Tambah Data Jadwal Inspeksi ID: JA1675329088, oleh: 33942109	2023-02-02 16:11:28+07	192.168.10.30
+245	33942109	delete	Hapus Data Jadwal Inspeksi ID: JA1675329088	2023-02-02 16:15:03+07	192.168.10.30
+246	33942109	insert	Restore Data Jadwal Inspeksi ID: JA1675329088	2023-02-02 16:19:33+07	192.168.10.30
+247	33942109	delete	Hapus Data Jadwal Inspeksi ID: JA1675329088	2023-02-02 16:19:37+07	192.168.10.30
+248	33942109	logout	Logout User	2023-02-02 16:20:36+07	192.168.10.30
+249	04991510	login	Login User 04991510	2023-02-02 16:20:39+07	192.168.10.30
+250	04991510	update	Close Temuan Inspeksi ID: 1675327855	2023-02-02 16:29:10+07	192.168.10.30
+251	04991510	delete	Hapus Data Temuan Inspeksi ID: 1675327855, oleh: 04991510	2023-02-02 16:51:23+07	192.168.10.30
+252	04991510	insert	Tambah Data Inspeksi Area: RKIT, Bagian: IT	2023-02-02 16:51:58+07	192.168.10.30
+253	04991510	update	Ubah Data Tanggapan Temuan Inspeksi	2023-02-02 16:52:15+07	192.168.10.30
+254	04991510	update	Close Temuan Inspeksi ID: 1675331517	2023-02-02 16:52:18+07	192.168.10.30
+255	04991510	delete	Hapus Data Temuan Inspeksi ID: 1675331517, oleh: 04991510	2023-02-02 16:53:57+07	192.168.10.30
+256	04991510	insert	Tambah Data Inspeksi Area: DRYER, Bagian: QCL	2023-02-02 16:55:07+07	192.168.10.30
+257	04991510	update	Close Temuan Inspeksi ID: 1675331707	2023-02-02 16:55:32+07	192.168.10.30
+258	33942109	login	Login User 33942109	2023-02-06 09:16:30+07	192.168.10.30
+259	33942109	insert	Tambah Data User dengan NIK: ADMIN	2023-02-06 09:17:14+07	192.168.10.30
+262	33942111	login	Login User 33942111	2023-02-06 09:20:23+07	192.168.10.30
+263	33942111	insert	Tambah Data User dengan NIK: 04991510	2023-02-06 09:21:06+07	192.168.10.30
+264	33942111	insert	Tambah Data User dengan NIK: 20230206	2023-02-06 09:21:50+07	192.168.10.30
+265	20230206	login	Login User 20230206	2023-02-06 09:24:37+07	192.168.10.30
+266	20230206	logout	Logout User	2023-02-06 09:28:53+07	192.168.10.30
+267	20230206	login	Login User 20230206	2023-02-06 09:42:15+07	192.168.10.30
+268	20230206	insert	Tambah Data Jadwal Inspeksi ID: JA1675656897, oleh: 20230206	2023-02-06 11:14:57+07	192.168.10.30
+269	20230206	login	Login User 20230206	2023-02-06 13:45:11+07	192.168.10.30
+270	20230206	delete	Hapus Data Jadwal Inspeksi ID: JA1675656897	2023-02-06 13:57:19+07	192.168.10.30
+271	20230206	logout	Logout User	2023-02-06 14:44:18+07	192.168.10.30
+272	20230206	login	Login User 20230206	2023-02-06 14:37:04+07	192.168.10.30
+273	20230206	logout	Logout User	2023-02-06 14:38:37+07	192.168.10.30
+274	04991510	login	Login User 04991510	2023-02-06 14:39:45+07	192.168.10.30
+275	20230206	login	Login User 20230206	2023-02-06 14:47:34+07	192.168.10.30
+276	20230206	insert	Tambah Data Jadwal Inspeksi ID: JA1675669674, oleh: 20230206	2023-02-06 14:47:54+07	192.168.10.30
+277	04991510	insert	Tambah Data Inspeksi Area: BKLELKT, Bagian: PMP	2023-02-06 14:49:06+07	192.168.10.30
+278	04991510	delete	Hapus Data Temuan Inspeksi ID: 1675669745, oleh: 04991510	2023-02-06 15:00:24+07	192.168.10.30
+279	04991510	insert	Tambah Data Inspeksi Area: MORTAR, Bagian: PRDMTR	2023-02-06 15:01:17+07	192.168.10.30
+280	04991510	delete	Hapus Data Temuan Inspeksi ID: 1675670477, oleh: 04991510	2023-02-06 15:02:08+07	192.168.10.30
+281	04991510	delete	Hapus Data Temuan Inspeksi ID: 1675669942, oleh: 04991510	2023-02-06 15:02:15+07	192.168.10.30
+282	04991510	delete	Hapus Data Temuan Inspeksi ID: 1675670269, oleh: 04991510	2023-02-06 15:02:23+07	192.168.10.30
+283	04991510	logout	Logout User	2023-02-06 15:04:05+07	192.168.10.30
+284	04991510	login	Login User 04991510	2023-02-06 15:04:13+07	192.168.10.30
+285	04991510	insert	Tambah Data Inspeksi Area: MORTAR, Bagian: PRDMTR	2023-02-06 15:04:39+07	192.168.10.30
+286	04991510	login	Login User 04991510	2023-02-08 13:01:24+07	192.168.10.30
+287	04991510	insert	Tambah Data Inspeksi Area: QCLFC, Bagian: QCL	2023-02-08 13:02:19+07	192.168.10.30
+288	04991510	logout	Logout User	2023-02-08 13:31:55+07	192.168.10.30
+289	04991510	login	Login User 04991510	2023-02-08 13:33:06+07	192.168.10.30
+290	04991510	logout	Logout User	2023-02-08 13:39:51+07	192.168.10.30
+291	20230206	login	Login User 20230206	2023-02-09 08:27:56+07	192.168.10.30
+292	20230206	logout	Logout User	2023-02-09 09:12:43+07	192.168.10.30
+293	20230206	login	Login User 20230206	2023-02-09 09:12:50+07	192.168.10.30
+294	20230206	logout	Logout User	2023-02-09 10:39:18+07	192.168.10.30
+295	20230206	login	Login User 20230206	2023-02-09 10:31:39+07	192.168.10.30
+296	20230206	logout	Logout User	2023-02-09 10:33:25+07	192.168.10.30
+297	20230206	login	Login User 20230206	2023-02-09 11:15:58+07	192.168.10.30
+298	20230206	logout	Logout User	2023-02-09 11:29:20+07	192.168.10.30
+299	04991510	login	Login User 04991510	2023-02-09 11:29:22+07	192.168.10.30
+300	04991510	logout	Logout User	2023-02-09 12:22:19+07	192.168.10.30
+301	20230206	login	Login User 20230206	2023-02-09 12:22:21+07	192.168.10.30
+302	20230206	insert	Tambah Data Jadwal Inspeksi ID: JA1675920152, oleh: 20230206	2023-02-09 12:22:32+07	192.168.10.30
+303	20230206	logout	Logout User	2023-02-09 12:22:39+07	192.168.10.30
+304	04991510	login	Login User 04991510	2023-02-09 12:22:42+07	192.168.10.30
+305	04991510	insert	Tambah Data Inspeksi	2023-02-09 12:26:48+07	192.168.10.30
+306	04991510	logout	Logout User	2023-02-09 13:05:18+07	192.168.10.30
+307	20230206	login	Login User 20230206	2023-02-09 13:05:21+07	192.168.10.30
+308	20230206	logout	Logout User	2023-02-09 14:02:53+07	192.168.10.30
+309	04991510	login	Login User 04991510	2023-02-09 14:02:56+07	192.168.10.30
+310	04991510	login	Login User 04991510	2023-02-09 13:58:20+07	192.168.10.30
+311	04991510	delete	Hapus Data Inspeksi ID: 1675920408	2023-02-09 14:02:41+07	192.168.10.30
+312	04991510	login	Login User 04991510	2023-02-09 14:02:47+07	192.168.10.30
+\.
+
+
+--
+-- TOC entry 2333 (class 0 OID 0)
+-- Dependencies: 249
+-- Name: tb_log_id_log_seq; Type: SEQUENCE SET; Schema: inspeksi_log; Owner: postgres
+--
+
+SELECT pg_catalog.setval('inspeksi_log.tb_log_id_log_seq', 312, true);
+
+
+--
+-- TOC entry 2210 (class 2606 OID 62600)
+-- Name: tb_log tb_log_pkey; Type: CONSTRAINT; Schema: inspeksi_log; Owner: postgres
+--
+
+ALTER TABLE ONLY inspeksi_log.tb_log
+    ADD CONSTRAINT tb_log_pkey PRIMARY KEY (id_log);
+
+
+-- Completed on 2023-02-09 14:29:32
+
+--
+-- PostgreSQL database dump complete
+--
+
