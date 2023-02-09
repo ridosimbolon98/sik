@@ -215,7 +215,7 @@
             <th>Aspek</th>
             <th>Pareto</th>
             <th>Auditie</th>
-            <th>total</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>

@@ -60,7 +60,7 @@ class M_user extends CI_Model {
 	}
 
     // Ambil data Audit temuan referensi per bagian
-    // 's_mst.tb_referensi', 's_mst.tb_audit', 's_mst.tb_dept', 's_mst.tb_aspek', 's_mst.tb_par_temuan'
+    // 's_trx.tb_referensi', 's_trx.tb_audit', 's_mst.tb_dept', 's_mst.tb_aspek', 's_mst.tb_par_temuan'
     function getRefAudit($table,$table2,$table3,$table4,$table5,$where) {
 		$this->db->select('*');
 		$this->db->from($table);
@@ -74,14 +74,14 @@ class M_user extends CI_Model {
 
     // ambil jumlah referensi audit ke bagian lain
     function getRefOtherNum($dept){
-        $sql = "SELECT * FROM s_mst.tb_referensi a JOIN s_mst.tb_audit b ON a.id_audit=b.id_audit
+        $sql = "SELECT * FROM s_trx.tb_referensi a JOIN s_trx.tb_audit b ON a.id_audit=b.id_audit
         WHERE b.bagian_dept='$dept' AND a.status_ref='false'";
         return $this->db->query($sql);
     }
 
     // ambil jumlah referensi audit ke bagian lain
     function getJlhTemNum($dept){
-        $sql = "SELECT count(jlh_tem_audit) as total FROM s_mst.tb_audit
+        $sql = "SELECT count(jlh_tem_audit) as total FROM s_trx.tb_audit
         WHERE kd_dept_audit='$dept' AND status='false'";
         return $this->db->query($sql);
     }
@@ -103,14 +103,15 @@ class M_user extends CI_Model {
         a.auditee=c.section WHERE a.auditee='$auditee'";
         return $this->db->query($sql);
 	}
-
-    // INSERT DATA AUDIT KE TABEL S_LOG>TB_AUDIT
+	
+	// INSERT DATA AUDIT KE TABEL S_LOG>TB_AUDIT
     function insertLogAudit($table,$table2,$id_audit) {
         $sql = "insert into $table (select * from $table2 WHERE id_audit='$id_audit')";
         return $this->db->query($sql);
 	}
-
-    // fungsi untuk ambil data jadwal auditor
+	
+	//AMBIL DATA JADWAL AUDITIE
+	// fungsi untuk ambil data jadwal auditor
     function getJadwalAuditor($table,$table2,$where){
         $this->db->select('*');
 		$this->db->from($table);
@@ -118,4 +119,17 @@ class M_user extends CI_Model {
         $this->db->where($where);
 		return $this->db->get();
     }
+	
+	// get ranking data
+    function getRankingData($table,$table2,$where) {
+        $this->db->select('*');
+		$this->db->from($table);
+		$this->db->join($table2, $table.'.dept_ranking='.$table2.'.id_dept');
+        $this->db->where($where);
+		return $this->db->get();
+	}
+	
+	
+	
+
 }

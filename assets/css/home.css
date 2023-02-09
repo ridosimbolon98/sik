@@ -271,21 +271,23 @@ body {
   justify-content: space-around;
 }
 
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 48%;
-  border-radius: 5px;
-}
 .row-table2 {
-  margin-top: 30px;
+  margin-top: 10px;
   margin-bottom: 30px;
   padding: 11px;
 }
+
 .card-pareto {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: 100%;
+  border-radius: 5px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 48%;
   border-radius: 5px;
 }
 
@@ -295,6 +297,9 @@ body {
 }
 
 #lineChartTA {
+  max-height: 250px;  
+}
+#barChartTA {
   max-height: 250px;  
 }
 #dougChartTA {
@@ -390,13 +395,14 @@ input[type=number] {
 }
 
 .footer {
-  height: 50px;
+  height: 40px;
+  padding: 10px;
   background-color: #272727;
   color: #f8f8f8;
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 10px;
+  align-items: center;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 768px) {

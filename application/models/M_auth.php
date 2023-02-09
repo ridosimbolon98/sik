@@ -13,11 +13,11 @@ class M_auth extends CI_Model {
 	}
 
 	//Cek login user pada tabel akun di database
-	public function autentikasi1($table,$table2,$where){
+	public function autentikasi_data($table,$table2,$where){
 		$this->db->select('*');
 		$this->db->from($table);
-		$this->db->join($table2, $table.'.kd_dept='.$table2.'.id_dept');
-        $this->db->where($where);
+		$this->db->join($table2, $table.'.bagian='.$table2.'.kode_bagian');
+    $this->db->where($where);
 		return $this->db->get();
 	}
 

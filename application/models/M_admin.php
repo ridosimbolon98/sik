@@ -7,22 +7,18 @@ class M_admin extends CI_Model {
         parent::__construct();
     }
 
-    public function getFormSelect($table,$where){
-        return $this->db->get_where($table,$where);
-    }
-
     // Fungsi untuk insert data ke database
-    function insert($table,$data) {
+    function insertData($table,$data) {
 		return $this->db->insert($table,$data);
 	}
 
     // Fungsi untuk ambil data dari database
-    function get($table){
+    function getData($table){
         return $this->db->get($table);
     }
 
     // fungsi untuk hapus data 
-    function delete($table,$where){
+    function deleteData($table,$where){
         $this->db->where($where);
         return $this->db->delete($table);
     }
@@ -32,27 +28,17 @@ class M_admin extends CI_Model {
 		return $this->db->update($table,$data);
     }
     
+    // Fungsi untuk ambil data berdasarkan ketentuan tertentu dari database
+    function getWhere($table,$where){
+        return $this->db->get_where($table, $where);
+    }
+
     // Fungsi untuk ambil data dari database
     function getLog($table){
         $this->db->select('*');
 		$this->db->from($table);
         $this->db->order_by($table.'.date', 'DESC');
         return $this->db->get();
-    }
-
-    // Fungsi untuk ambil data ranking dari database
-    function getRanking($table,$table2){
-        $this->db->select('area_ranking, periode_ranking, total_ranking, area_dept, row_number');
-		$this->db->from($table);
-        $this->db->join($table2, $table.'.dept_ranking='.$table2.'.id_dept');
-        $this->db->order_by($table.'.periode_ranking', 'DESC');
-        $this->db->order_by($table.'.row_number', 'ASC');
-        return $this->db->get();
-    }
-
-    // Fungsi untuk ambil data berdasarkan ketentuan tertentu dari database
-    function getWhere($table,$where){
-        return $this->db->get_where($table, $where);
     }
 
     // Fungsi untuk mengambil data users
@@ -63,243 +49,136 @@ class M_admin extends CI_Model {
         $this->db->order_by($table.'.nama', 'ASC');
 		return $this->db->get();
 	}
-
-    // Fungsi untuk mengambil data users koordinator
-    function getUserKoorAud($table,$table2,$where) {
+    
+    // Fungsi untuk mengambil data area
+    function getArea($table) {
 		$this->db->select('*');
 		$this->db->from($table);
-		$this->db->join($table2, $table.'.username='.$table2.'.nama_auditor');
-		$this->db->where($where);
-        $this->db->order_by($table.'.nama', 'ASC');
+        $this->db->order_by($table.'.desk_area', 'ASC');
 		return $this->db->get();
 	}
-
-    // Fungsi untuk mengambil data users
-    function getKoor($table,$table2,$where) {
-		$this->db->select('*');
-		$this->db->from($table);
-		$this->db->join($table2, $table.'.kd_dept='.$table2.'.id_dept');
-        $this->db->where($where);
-		return $this->db->get();
-	}
-
-    // Fungsi untuk mengambil data map auditor
-    function getMapAuditors($table,$table2,$table3) {
-		$this->db->select('*');
-		$this->db->from($table);
-		$this->db->join($table2, $table.'.id_auditor='.$table2.'.id_auditor');
-		$this->db->join($table3, $table.'.id_koor='.$table3.'.id_user');
-		return $this->db->get();
-	}
-
+	
     // Fungsi untuk mengambil data jadwal auditor
-    function getJadwal($table,$table2,$table3) {
+    function getJadwal($table,$table2,$where) {
 		$this->db->select('*');
 		$this->db->from($table);
-		$this->db->join($table2, $table.'.auditor='.$table2.'.id_user');
-		$this->db->join($table3, $table.'.auditee='.$table3.'.area_dept');
+		$this->db->join($table2, $table.'.id_user='.$table2.'.username');
+        $this->db->where($where);
 		return $this->db->get();
 	}
     
-    // Fungsi untuk mengambil data audit
-    function getAllAudit($table,$table2,$table3,$table4,$where) {
-		$this->db->select('*');
-		$this->db->from($table);
-		$this->db->join($table2, $table.'.kd_dept_audit='.$table2.'.id_dept');
-		$this->db->join($table3, $table.'.kd_atem_audit='.$table3.'.id_aspek');
-		$this->db->join($table4, $table.'.kd_tem_audit='.$table4.'.id_pt');
-        $this->db->where($where);
-		return $this->db->get();
-	}
+    // mengambil data temuan per area by tahun
+    function getTemuanByArea($tahun, $kd_area) {
+        $sql = "SELECT a.id, a.tgl_inspeksi, a.shift, d.aspek_tem, e.nama as inspektor, b.deskripsi as nama_bagian, a.kd_area,
+        c.desk_area as nama_area, a.unsur, a.poin_min, a.foto_temuan, a.keterangan, a.tanggapan, a.status_tem,
+        a.created_at
+        from inspeksi_trx.temuan_inspeksi a join inspeksi_mst.bagian b
+        on a.kd_bagian=b.kode_bagian
+        join inspeksi_mst.area c on a.kd_area=c.kode_area
+        join inspeksi_mst.item_temuan d on a.kd_temuan=d.id_tem
+        join inspeksi_mst.user e on a.user_inspektor=e.username
+        where a.kd_area='$kd_area' and date_part('year', a.tgl_inspeksi)='$tahun'
+        order by a.tgl_inspeksi DESC";
+        return $this->db->query($sql);
+    }
 
-    // Fungsi untuk mengambil data jumlah temuan audit
-    function getJlhTemuan($table,$table2,$table3,$table4,$where) {
-		$this->db->select_sum('jlh_tem_audit');
-		$this->db->from($table);
-		$this->db->join($table2, $table.'.kd_dept_audit='.$table2.'.id_dept');
-		$this->db->join($table3, $table.'.kd_atem_audit='.$table3.'.id_aspek');
-		$this->db->join($table4, $table.'.kd_tem_audit='.$table4.'.id_pt');
-        $this->db->where($where);
-		return $this->db->get();
-	}
+    // mengambil data total poin min per area dan periode
+    function getPoinMin($periode, $kd_area) {
+        $sql = "SELECT sum(poin_min::bigint) as total_poin from inspeksi_trx.temuan_inspeksi where kd_area='$kd_area' and periode='$periode'";
+        return $this->db->query($sql);
+    }
 
-    // Update Rekomendasi
-    function updateRekomendasi($table,$data,$where){
+    // mengambil data report temuan
+    //'inspeksi_trx.report', 'inspeksi_mst.area', 'inspeksi_mst.user'
+    function getReportTemuan($table, $table2, $table3, $where) {
+        $this->db->select("
+            $table.id, $table.poin_min, $table.periode,
+            $table2.desk_area,
+            $table3.nama
+        ");
+        $this->db->from($table);
+		$this->db->join($table2, $table.'.kode_area='.$table2.'.kode_area');
+		$this->db->join($table3, $table.'.eop_by='.$table3.'.username');
         $this->db->where($where);
-        return $this->db->update($table,$data);
+        $this->db->order_by($table.'.poin_min', 'DESC');
+		return $this->db->get();
+    }
+
+    // hapus dan copy data jadwal ke inspeksi_tmp.jadwal
+    function deleteJadwal($id_jadwal) {
+        $sql = "insert into inspeksi_tmp.jadwal (select * from inspeksi_trx.jadwal where id_jadwal='$id_jadwal');
+        delete from inspeksi_trx.jadwal where id_jadwal='$id_jadwal';";
+        return $this->db->query($sql);
     }
     
+    // hapus dan copy data inspeksi ke inspeksi_tmp.inspeksi
+    function deleteDataInspeksi($id) {
+        $sql = "insert into inspeksi_tmp.inspeksi (select * from inspeksi_trx.inspeksi where id='$id');
+        delete from inspeksi_trx.inspeksi where id='$id';";
+        return $this->db->query($sql);
+    }
+    
+    // hapus dan copy data jadwal dari inspeksi_tmp.jadwal ke inspeksi_trx.jadwal
+    function restoreJadwal($id_jadwal) {
+        $sql = "insert into inspeksi_trx.jadwal (select * from inspeksi_tmp.jadwal where id_jadwal='$id_jadwal');
+        delete from inspeksi_tmp.jadwal where id_jadwal='$id_jadwal';";
+        return $this->db->query($sql);
+    }
+
+    // ambil data jumlah temuan per periode
+    function getSumTemuanPeriode($periode) {
+        $sql = "SELECT count(*) as jml from inspeksi_trx.temuan_inspeksi where periode='$periode'";
+        return $this->db->query($sql);
+    }
+
+    // ambil jumlah temuan open per tahun
+    function getSumTemOpen($tahun) {
+        $sql = "SELECT * from inspeksi_trx.temuan_inspeksi where status_tem='f' and date_part('year', tgl_inspeksi)='$tahun'";
+        return $this->db->query($sql);
+    }
+    
+    // ambil jumlah temuan new per tahun
+    function getSumTemNew($periode) {
+        $sql = "SELECT * from inspeksi_trx.temuan_inspeksi where status_tem='f' and periode='$periode'";
+        return $this->db->query($sql);
+    }
+    
+    // ambil jumlah temuan belum ditanggapi per tahun
+    function getSumTemBlmDtgp($periode) {
+        $sql = "SELECT * from inspeksi_trx.temuan_inspeksi where status_tem='f' and tanggapan IS NULL and date_part('year', tgl_inspeksi)='$periode'";
+        return $this->db->query($sql);
+    }
+    
+    // ambil jumlah temuan belum ditanggapi per tahun
+    function getSumTemClose($periode) {
+        $sql = "SELECT * from inspeksi_trx.temuan_inspeksi where status_tem='t' and status_tem='t' and date_part('year', tgl_inspeksi)='$periode'";
+        return $this->db->query($sql);
+    }
+    
+    // ambil jumlah temuan belum ditanggapi per tahun
+    function getDataInspeksiBerjalan($periode) {
+        $sql = "SELECT * from inspeksi_trx.inspeksi where date_part('year', tgl_inspeksi)='$periode'";
+        return $this->db->query($sql);
+    }
+    
+    
+    /** ========================================================================= */
     // Fungsi untuk hapus seluruh data di tabel ranking
     function truncateRanking($table){
         return $this->db->truncate($table);
     }
 
-    // insert data ke database
-    function insertData($table, $data){
-        return $this->db->insert($table,$data);
-    }
-
-    // fungsi untuk generate ranking dari tb tmp ke tbl mst
-    function generateRanking(){
-        $sql = "INSERT INTO s_mst.tb_ranking SELECT id_ranking, area_ranking, dept_ranking, periode_ranking, total_ranking, updated_ranking, nama_dep, 
-        row_number() OVER (ORDER BY total_ranking DESC, updated_ranking ASC) FROM s_tmp.tb_ranking";
+    // get user actice session
+    public function show_active_users(){
+        $sql = "SELECT a.id, TO_TIMESTAMP(a.timestamp) at time zone 'UTC+7' at time zone 'PST+7' as timestamp, a.ip_address, a.data
+        from inspeksi_tmp.ci_sessions a";        
         return $this->db->query($sql);
     }
 
-    // ambil data date close terlama
-    function getDateClose($table,$where){
-        $this->db->select('MAX(date_close)');
-		$this->db->from($table);
-        $this->db->where($where);
-        $this->db->group_by('date_close');
-        $this->db->limit('1');
-		return $this->db->get();
-    }
-
-    // ambil data jumlah temuan yg open per auditee
-    function getSumTemAuditee($auditee){
-        $sql = "select sum(jlh_tem_audit) from s_mst.tb_audit where kd_dept_audit = ? and status = ? ";
-        return $this->db->query($sql, array($auditee, 'false'));
-    }
-
-
-    // ambil data jumlah temuan yg open per auditee
-    function getPareto($table, $kd_temuan, $periode){
-        $sql = "select sum(jlh_tem_audit) as total from $table a where a.kd_tem_audit='$kd_temuan' and a.periode='$periode' ";
+    // delete user actice session
+    public function deleteSession($table, $sess_id){
+        $sql = "DELETE from inspeksi_tmp.ci_sessions where id<>'$sess_id'";        
         return $this->db->query($sql);
     }
 
-    // fungsi untuk ambil data pareto
-    function getDataPareto($table,$table2,$where){
-        $this->db->select('*');
-		$this->db->from($table);
-		$this->db->join($table2, $table.'.aspek='.$table2.'.id_aspek');
-        $this->db->where($where);
-        $this->db->order_by($table.'.kat_5r', 'ASC');
-        $this->db->order_by($table.'.jumlah', 'DESC');
-		return $this->db->get();
-    }
-
-    // ambil data jumlah paretor terbaik
-    function getJlhPareto($periode){
-        $sql = "select rr.* from
-            (select
-                ranked.*,
-                rank() over(partition by desk_aspek order by jumlah desc, desk_partem asc)
-            from
-                (select a.kat_5r, b.desk_aspek, a.desk_partem, a.jumlah, a.periode, a.kd_partem from s_mst.tb_pareto a join s_mst.tb_aspek b on a.aspek=b.id_aspek 
-                where a.periode='$periode'
-                order by a.kat_5r asc, b.desk_aspek asc, jumlah desc) ranked ) rr
-            where rr.rank <=3
-            order by rr.kat_5r asc, rr.desk_aspek asc, rr.jumlah desc";
-        return $this->db->query($sql);
-    }
-
-    // ambil data auditie by section
-    function getDataAuditie($table,$section){
-        $sql ="select area_dept from $table where section='$section'";
-        return $this->db->query($sql);
-    }
-
-    // ambil data auditie by section
-    function getDataAuditorByKoor($table, $table2, $id_koor){
-        $sql ="select * from $table a left join $table2 b on a.id_auditor=b.id_auditor where id_koor=$id_koor";
-        return $this->db->query($sql);
-    }
-
-    // ambil data jumlah jadwal based realisasi dan periode
-    function getJadwalByRealisasi($area, $realisasi, $periode){
-        $sql ="select count(distinct(id_dept)) as total from s_tmp.tb_jadwal where area='$area' and realisasi='$realisasi' and periode='$periode'";
-        return $this->db->query($sql);
-    }
-
-    // insert dan update jadwal audit ke tmp
-    function replikasiDataJadwalBaru($kd_jadwal){
-        $sql ="insert into s_tmp.tb_jadwal (select id_dept,kat_dept as area,area_dept,section,kd_jadwal,auditor,anggota_auditor,realisasi,periode,
-        tgl_waktu as tgl_audit from s_mst.tb_dept a join s_mst.tb_jadwal b
-         on b.auditee=a.section  where b.kd_jadwal='$kd_jadwal' order by a.section);";
-        return $this->db->query($sql);
-    }
-
-    // fungsi untuk ambil data jadwal auditor
-    function getJadwalAuditor($table,$table2,$where){
-        $this->db->select('*');
-		$this->db->from($table);
-		$this->db->join($table2, $table.'.koor='.$table2.'.id_user');
-        $this->db->where($where);
-		return $this->db->get();
-    }
-
-    // fungsi untuk jlh data temuan baru
-    function getJlhTB($periode){
-        $sql ="select count(*) from s_mst.tb_audit where status='false' and periode = '$periode'";
-        return $this->db->query($sql);
-    }
-
-    // fungsi untuk jlh data temuan open sebelumnya
-    function getJlhOS($periode){
-        $sql ="select count(*) from s_mst.tb_audit where status='false' and periode <> '$periode'";
-        return $this->db->query($sql);
-    }
-
-    // fungsi untuk jlh data temuan belum tindak lanjut
-    function getJlhBTL($periode){
-        $sql ="select count(*) from s_mst.tb_audit where status='false' and otorisasi='SUDAH' and periode = '$periode' and gambar_sesudah = '0'";
-        return $this->db->query($sql);
-    }
-
-    // fungsi untuk jlh data temuan sudah tindak lanjut
-    function getJlhSTL($periode){
-        $sql ="select count(*) from s_mst.tb_audit where status='false' and otorisasi='SUDAH' and periode = '$periode' and gambar_sesudah <> '0'";
-        return $this->db->query($sql);
-    }
-
-    // fungsi untuk jlh data temuan sudah tindak lanjut per area
-    function getJlhTSTL($area,$periode){
-        $sql ="select count(*) from s_mst.tb_audit where kd_lok_audit='$area' and otorisasi='SUDAH' and gambar_sesudah<>'0' and periode='$periode'";
-        return $this->db->query($sql);
-    }
-
-    // fungsi untuk jlh data temuan belum tindak lanjut per area
-    function getJlhTBTL($area,$periode){
-        $sql ="select count(*) from s_mst.tb_audit where kd_lok_audit='$area' and otorisasi='SUDAH' and gambar_sesudah='0' and periode='$periode'";
-        return $this->db->query($sql);
-    }
-
-    // fungsi untuk data temuan  tindak lanjut per area
-    function getDataTL($area,$periode){
-        $sql ="select id_audit,kd_lok_audit,b.area_dept,gambar_sesudah as tl,status from s_mst.tb_audit a left join s_mst.tb_dept b on a.kd_dept_audit=b.id_dept where kd_lok_audit='$area' and periode='$periode'";
-        return $this->db->query($sql);
-    }
-
-    // fungsi untuk reschedule jadwal audit
-    function rescheduleJadwalAudit($kode_jadwal, $tgl_audit){
-        $sql ="UPDATE s_mst.tb_jadwal SET tgl_waktu='$tgl_audit' WHERE kd_jadwal='$kode_jadwal';
-        UPDATE s_tmp.tb_jadwal SET tgl_audit='$tgl_audit' WHERE kd_jadwal='$kode_jadwal';";
-        return $this->db->query($sql);
-    }
-    
-    // fungsi untuk reschedule jadwal audit
-    function getJadwalBelumAudit($periode){
-        $sql ="select a.area_dept, a.koor, b.nama, a.auditor, b.no_wa, a.periode, a.tgl_audit from s_tmp.tb_jadwal a left outer join s_mst.tb_wa b on a.koor=b.id_auditor where realisasi='false' and a.periode='$periode' order by a.tgl_audit asc";
-        return $this->db->query($sql);
-    }
-
-    // fungsi untuk ambild ata wa audit
-    function getDataWa(){
-        $sql ="select distinct(nama) as nama, no_wa, tipe from s_mst.tb_wa order by nama asc";
-        return $this->db->query($sql);
-    }
-    
-    // fungsi untuk duplikasi ke s_log audit
-    function insertLogTemuanCutOff($tabel_log, $tabel_mst, $periode){
-        $sql ="insert into $tabel_log (select * from $tabel_mst where status='false' and periode='$periode')";
-        return $this->db->query($sql);
-    }
-
-    // fungsi untuk duplikasi ke s_log audit
-    function insertTmpTemuanCutOff($tabel_mst, $periode){
-        $sql ="insert into s_tmp.tb_audit (select * from $tabel_mst where status='false' and periode='$periode')";
-        return $this->db->query($sql);
-    }
 }
