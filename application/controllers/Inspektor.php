@@ -394,23 +394,19 @@ class Inspektor extends CI_Controller {
 
 				if ($update_jadwal) {
 					$this->session->set_flashdata('success', "Berhasil submit data inspeksi.");
-					$res = array('success' => 'Berhasil Submit Data');
-					return json_encode($res);
+					redirect(base_url("inspektor/area_inspeksi"));
 				} else {
 					$this->session->set_flashdata('success', "Berhasil submit data inspeksi, namun gagal realisasi jadwal.");
-					$res = array('success' => 'Berhasil Submit Data, namun gagal realisasi jadwal');
-					return json_encode($res);
+					redirect(base_url("inspektor/area_inspeksi"));
 				}
 			}
 
 			$this->session->set_flashdata('success', "Berhasil submit data inspeksi.");
-			$res = array('success' => 'Berhasil Submit Data');
-			return json_encode($res);
+			redirect(base_url("inspektor/area_inspeksi"));
 
 		} else{
 			$this->session->set_flashdata('error', "Gagal submit data inspeksi.");
-			$res = array('failed' => 'Gagal Submit Data');
-			return json_encode($res);
+			redirect(base_url("inspektor/area_inspeksi"));
 		}
 	}
 
