@@ -160,6 +160,12 @@ class M_admin extends CI_Model {
         $sql = "SELECT * from inspeksi_trx.inspeksi where date_part('year', tgl_inspeksi)='$periode'";
         return $this->db->query($sql);
     }
+
+    // ambil data realisasi jadwal
+    function getRealisasiJadwal($periode) {
+        $sql = "SELECT a.*, b.username, b.nama FROM inspeksi_trx.jadwal a JOIN inspeksi_mst.user b ON a.id_user=b.username WHERE periode='$periode'";
+        return $this->db->query($sql);
+    }
     
     
     /** ========================================================================= */

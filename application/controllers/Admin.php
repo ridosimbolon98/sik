@@ -937,6 +937,27 @@ class Admin extends CI_Controller {
 			redirect(base_url("admin/inspeksi"));
 		}
 	}
+
+
+	// menampilkan report realisasi jadwal
+	function report_jadwal() {
+		date_default_timezone_set("Asia/Jakarta");
+
+		$data['title'] = "Report Realisasi Jadwal Inspeksi";
+
+		$prd = $this->input->post("periode");
+		if (isset($prd)) {
+			$periode = $prd;
+			$data['periode'] = $prd;
+			$data['report_jadwal'] = $this->m_admin->getRealisasiJadwal($periode)->result();
+		} else {
+			$periode = date("Y-m");
+			$data['periode'] = $periode;
+			$data['report_jadwal'] = $this->m_admin->getRealisasiJadwal($periode)->result();
+		}
+
+		$this->load->view('admin/v_report_realisasi_jadwal', $data);
+	} 
 	
 
 

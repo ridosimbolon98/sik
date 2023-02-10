@@ -99,6 +99,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="<?= base_url(); ?>admin/report_jadwal" class="nav-link">
+              <i class="nav-icon fas fa-calendar-check"></i>
+              <p>
+                Realisasi Jadwal
+              </p>
+            </a>
+          </li>
           <li class="nav-header">DOKUMEN</li>
           <li class="nav-item">
             <a href="<?= base_url(); ?>admin/panduan" class="nav-link">

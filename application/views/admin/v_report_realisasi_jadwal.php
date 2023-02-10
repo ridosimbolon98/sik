@@ -14,7 +14,7 @@
       <!-- Sidebar user -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="<?= base_url(); ?>public/img/logo_nbi.png" class="elevation-2" alt="User Image">
+          <img src="<?= base_url(); ?>public/img/logo_nbi.png" class=" elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="" class="d-block"><?= strtoupper($this->session->userdata("nama")); ?> (<?= $this->session->userdata("level") ?>)</a>
@@ -93,7 +93,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url(); ?>admin/report_jadwal" class="nav-link">
+            <a href="<?= base_url(); ?>admin/report_jadwal" class="nav-link active">
               <i class="nav-icon fas fa-calendar-check"></i>
               <p>
                 Realisasi Jadwal
@@ -111,7 +111,7 @@
           </li>
           <li class="nav-header">LOGS</li>
           <li class="nav-item">
-            <a href="<?= base_url(); ?>admin/log" class="nav-link active">
+            <a href="<?= base_url(); ?>admin/log" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
                 Log User
@@ -145,7 +145,8 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="<?= base_url('admin'); ?>">Home</a></li>
-              <li class="breadcrumb-item"><a href="<?= base_url('admin/user'); ?>">User</a></li>
+              <li class="breadcrumb-item"><a href="<?= base_url('admin/report_jadwal'); ?>">Report</a></li>
+              <li class="breadcrumb-item active">Jadwal</li>
             </ol>
           </div>
         </div>
@@ -157,41 +158,56 @@
       <div class="container-fluid">
 
         <div class="row">
-
           <div class="col-sm-12">
+
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Tabel Data Log</h3>
+                <h3 class="card-title"><?= $title ?>: <?= $periode ?></h3>
               </div>
 
               <div class="card-body">
+
+              <!-- filter Bulan Periode -->
+                <form class="form-inline" action="<?= base_url(); ?>admin/report_jadwal" method="post">
+                  <div class="form-group mb-2">
+                    <label class="mr-2 mb-2">Pilih Periode</label>
+                    <input type="month" name="periode" class="form-control mr-2 mb-2" required>
+                    <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-chart-bar"></i> Filter</button>
+                  </div>
+                </form>
+
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr class="text-center">
                       <th>Kode</th>
-                      <th>Username</th>
-                      <th>Type Log</th>
-                      <th>Deskripsi Log</th>
-                      <th>Date Log</th>
-                      <th>IP</th>
-                  </tr>
+                      <th>NIK</th>
+                      <th>Inspektor</th>
+                      <th>Tgl Inspeksi</th>  
+                      <th>Shift</th>  
+                      <th>Tgl Realisasi</th>
+                      <th>Keterangan</th>
+                      <th>Status</th>
+                    </tr>
                   </thead>
                   <tbody>
-                    <?php foreach($log as $row): ?>
-                    <tr class="text-center">
-                      <td><?= $row->id_log; ?></td>
-                      <td><?= $row->username ?></td>
-                      <td><?= $row->type_log ?></td>
-                      <td><?= $row->deskripsi_log ?></td>
-                      <td><?= $row->date ?></td>
-                      <td><?= $row->ip ?></td>
-                    </tr>
+                    <?php 
+                      foreach($report_jadwal as $row): ?>
+                      <tr>
+                        <td class="text-center"><?= $row->id_jadwal ?></td>
+                        <td class="text-center"><?= $row->username ?></td>
+                        <td class="text-center"><?= $row->nama ?></td>
+                        <td class="text-center"><?= $row->tgl_inspeksi ?></td>
+                        <td class="text-center"><?= $row->shift_inspeksi ?></td>
+                        <td class="text-center"><?= $row->tgl_realisasi ?></td>
+                        <td class="text-center"><?= $row->keterangan ?></td>
+                        <td class="text-center <?= $row->status_inspeksi == 'f' ? 'text-danger' : '' ?>"><?= $row->status_inspeksi == 'f' ? 'BELUM' : 'SUDAH' ?></td>
+                      </tr>
                     <?php endforeach; ?>
+                  </tbody>
                 </table>
               </div>
             </div>
-          </div>  
-
+          </div>
         </div>
       </div>
     </section>
