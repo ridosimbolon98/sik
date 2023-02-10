@@ -158,7 +158,7 @@
                       </td>
                       <td class="text-center"><?= $row->periode ?></td>
                       <td class="text-center">
-                        <a href="<?= base_url(); ?>inspektor/hapus_inspeksi/<?= $row->id ?>" class="btn btn-sm btn-danger" data-tooltip="Hapus Temuan"><i class="fa fa-trash"></i></a>
+                        <a href="<?= base_url(); ?>inspektor/hapus_inspeksi/<?= $row->id ?>" class="btn btn-sm btn-danger" data-tooltip="Hapus Temuan" onclick="return confirm('Apakah anda yakin hapus data inspeksi ini?')"><i class="fa fa-trash"></i></a>
                       </td>
                     </tr>
                   <?php endforeach; ?>

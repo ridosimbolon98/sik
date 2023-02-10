@@ -240,7 +240,7 @@
                       <select name="area_inspeksi[]" class="form-select form-select-sm" id="area_inspeksi" multiple="multiple" aria-label="area_inspeksi" required placeholder="Pilih area inspeksi">
                         <option value="" disabled-selected hidden>--Pilih Area--</option>
                         <?php foreach($area as $ar): ?>
-                            <option value="<?= $ar->kode_area ?>"><?= $ar->desk_area ?></option>
+                            <option value="<?= $ar->desk_area ?>"><?= $ar->desk_area ?></option>
                         <?php endforeach ?>
                       </select>
                     </div>

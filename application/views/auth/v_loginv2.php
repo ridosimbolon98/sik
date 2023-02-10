@@ -51,7 +51,7 @@
       </form>
 
       <p class="my-2">
-        <a href="#">*Panduan penggunaan sistem</a>
+        <a href="<?= base_url() ?>public/file/user_guides_sik_inspektor_v1.pdf">*Panduan penggunaan sistem (inspektor)</a>
       </p>
     </div>
   </div>
